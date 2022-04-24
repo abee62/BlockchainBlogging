@@ -180,7 +180,7 @@ class App extends Component {
       .getUser(this.state.account)
       .call();
     console.log("result", result);
-    if (result && result.email != "") {
+    if (result && result.email !== "") {
       let { name, email, id } = result;
       this.setState({
         user: {
@@ -223,11 +223,11 @@ class App extends Component {
 
   async setNetworkData() {
     const networkId = await window.web3.eth.net.getId();
-    const networkData = '0x3'
+    const networkData = Medium.networks[networkId];
     if (networkData) {
       let medium = new window.web3.eth.Contract(
         Medium.abi,
-        "0x8a4300979d3f6460e4de39c67eeb90a8a0959e1b"
+        networkData.address
       );
       this.setState({
         medium: medium,
